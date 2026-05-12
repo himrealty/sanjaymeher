@@ -64,7 +64,190 @@
         }
         .btn-secondary:hover { background: #8b5cf6; color: #fff; }
         .cta-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        /* Header Styles */
+.main-header {
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+}
 
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #a78bfa;
+    text-decoration: none;
+}
+
+.desktop-nav ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.desktop-nav a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.desktop-nav a:hover {
+    color: #a78bfa;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+    background: rgba(139, 92, 246, 0.2);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s;
+}
+
+.theme-toggle-btn:hover {
+    background: rgba(139, 92, 246, 0.4);
+    transform: scale(1.05);
+}
+
+/* Hamburger Button */
+.hamburger-btn {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.hamburger-btn span {
+    width: 25px;
+    height: 2px;
+    background: #a78bfa;
+    transition: 0.3s;
+}
+
+.hamburger-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    display: none;
+    background: rgba(10, 10, 15, 0.98);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(139, 92, 246, 0.2);
+    padding: 1.5rem 0;
+}
+
+.mobile-menu.active {
+    display: block;
+}
+
+.mobile-nav ul {
+    list-style: none;
+    margin-bottom: 1.5rem;
+}
+
+.mobile-nav li {
+    margin-bottom: 1rem;
+}
+
+.mobile-nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: block;
+    padding: 0.5rem 0;
+}
+
+.mobile-nav a:hover {
+    color: #a78bfa;
+}
+
+/* Mobile Theme Button */
+.mobile-theme-btn {
+    width: 100%;
+    background: rgba(139, 92, 246, 0.2);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 8px;
+    padding: 12px;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.mobile-theme-btn:hover {
+    background: rgba(139, 92, 246, 0.4);
+}
+
+/* Light Theme Styles */
+body.light-theme .main-header {
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom-color: rgba(139, 92, 246, 0.3);
+}
+
+body.light-theme .desktop-nav a {
+    color: #1a1a2e;
+}
+
+body.light-theme .mobile-menu {
+    background: rgba(255, 255, 255, 0.98);
+}
+
+body.light-theme .mobile-nav a {
+    color: #1a1a2e;
+}
+
+body.light-theme .theme-toggle-btn,
+body.light-theme .mobile-theme-btn {
+    background: rgba(139, 92, 246, 0.1);
+    color: #1a1a2e;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .desktop-nav {
+        display: none;
+    }
+    
+    .theme-toggle-btn {
+        display: none;
+    }
+    
+    .hamburger-btn {
+        display: flex;
+    }
+    
+    .header-content {
+        gap: 1rem;
+    }
+}
         /* Trust Bar */
         .trust-bar {
             background: rgba(139,92,246,.05);
@@ -229,7 +412,58 @@
     </style>
 </head>
 <body>
-
+<!-- Header with Navigation -->
+<header class="main-header">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <a href="index.html" class="logo-text">Graphicy</a>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Desktop Theme Toggle -->
+            <button id="themeToggleDesktop" class="theme-toggle-btn" aria-label="Switch theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+            
+            <!-- Mobile Hamburger Button -->
+            <button id="hamburgerBtn" class="hamburger-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Mobile Menu (hidden by default) -->
+    <div id="mobileMenu" class="mobile-menu">
+        <div class="container">
+            <nav class="mobile-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <!-- Theme Toggle INSIDE Mobile Menu -->
+            <button id="themeToggleMobile" class="mobile-theme-btn">
+                <span class="theme-icon">🌙</span> Switch Theme
+            </button>
+        </div>
+    </div>
+</header>
 <main>
     <div class="container">
 
