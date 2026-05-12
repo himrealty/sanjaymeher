@@ -8,296 +8,11 @@
     <meta name="keywords" content="video editing, graphic design, motion graphics, animation, SEO, social media, WhatsApp marketing, India">
     <meta name="author" content="Sanjay Meher - Graphicy">
     <link rel="icon" type="image/png" href="https://graphicy.art.blog/wp-content/uploads/2023/01/cropped-Graphicy-Logo-1-32x32.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: #0a0a0f;
-            color: #ffffff;
-            line-height: 1.6;
-        }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
-
-        /* Hero */
-        .hero { padding: 4rem 0 3rem; text-align: center; }
-        .badge {
-            display: inline-block;
-            background: rgba(139,92,246,.15);
-            color: #a78bfa;
-            padding: .5rem 1.1rem;
-            border-radius: 50px;
-            font-size: .82rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(139,92,246,.3);
-        }
-        /* Light Theme Styles */
-body.light-theme {
-    background: #f5f5f7;
-    color: #1a1a2e;
-}
-
-body.light-theme .service-card,
-body.light-theme .guarantee-banner,
-body.light-theme .course-highlight {
-    background: #ffffff;
-    border-color: rgba(0, 0, 0, 0.1);
-}
-
-body.light-theme .service-card p,
-body.light-theme .step p,
-body.light-theme .about-teaser p,
-body.light-theme .section-subtitle,
-body.light-theme .subheadline {
-    color: #4a4a6a;
-}
-
-body.light-theme .trust-bar {
-    background: rgba(139, 92, 246, 0.08);
-}
-
-body.light-theme .brand-item span {
-    color: #6060a0;
-}
-
-body.light-theme .problem-line {
-    color: #8a8aaa;
-}
-
-body.light-theme .final-cta {
-    background: rgba(139, 92, 246, 0.08);
-}
-
-body.light-theme .service-card h3 {
-    color: #6d28d9;
-}
-
-body.light-theme .service-icon {
-    filter: brightness(0.8);
-}
-
-body.light-theme .brand-item img {
-    background: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.1);
-}
-        h1 { font-size: 3rem; font-weight: 700; margin-bottom: 1rem; }
-        h1 .purple { color: #a78bfa; }
-        .subheadline {
-            font-size: 1.15rem;
-            color: #9090b8;
-            max-width: 680px;
-            margin: 0 auto 2rem;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
-            color: #fff;
-            padding: .8rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-            transition: transform .2s;
-        }
-        .btn-primary:hover { transform: translateY(-2px); }
-        .btn-secondary {
-            border: 2px solid #8b5cf6;
-            color: #a78bfa;
-            background: transparent;
-            padding: .8rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-        }
-        .btn-secondary:hover { background: #8b5cf6; color: #fff; }
-        .cta-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-        /* Header Styles */
-.main-header {
-    background: rgba(10, 10, 15, 0.95);
-    backdrop-filter: blur(10px);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 1px solid rgba(139, 92, 246, 0.2);
-}
-
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0;
-}
-
-.logo-text {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #a78bfa;
-    text-decoration: none;
-}
-
-.desktop-nav ul {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-}
-
-.desktop-nav a {
-    color: #ffffff;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.desktop-nav a:hover {
-    color: #a78bfa;
-}
-
-/* Theme Toggle Button */
-.theme-toggle-btn {
-    background: rgba(139, 92, 246, 0.2);
-    border: 1px solid rgba(139, 92, 246, 0.3);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: all 0.3s;
-}
-
-.theme-toggle-btn:hover {
-    background: rgba(139, 92, 246, 0.4);
-    transform: scale(1.05);
-}
-
-/* Hamburger Button */
-.hamburger-btn {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-}
-
-.hamburger-btn span {
-    width: 25px;
-    height: 2px;
-    background: #a78bfa;
-    transition: 0.3s;
-}
-
-.hamburger-btn.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-
-.hamburger-btn.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger-btn.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -7px);
-}
-
-/* Mobile Menu */
-.mobile-menu {
-    display: none;
-    background: rgba(10, 10, 15, 0.98);
-    backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(139, 92, 246, 0.2);
-    padding: 1.5rem 0;
-}
-
-.mobile-menu.active {
-    display: block;
-}
-
-.mobile-nav ul {
-    list-style: none;
-    margin-bottom: 1.5rem;
-}
-
-.mobile-nav li {
-    margin-bottom: 1rem;
-}
-
-.mobile-nav a {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 1.1rem;
-    display: block;
-    padding: 0.5rem 0;
-}
-
-.mobile-nav a:hover {
-    color: #a78bfa;
-}
-
-/* Mobile Theme Button */
-.mobile-theme-btn {
-    width: 100%;
-    background: rgba(139, 92, 246, 0.2);
-    border: 1px solid rgba(139, 92, 246, 0.3);
-    border-radius: 8px;
-    padding: 12px;
-    color: #ffffff;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: all 0.3s;
-}
-
-.mobile-theme-btn:hover {
-    background: rgba(139, 92, 246, 0.4);
-}
-
-/* Light Theme Styles */
-body.light-theme .main-header {
-    background: rgba(255, 255, 255, 0.95);
-    border-bottom-color: rgba(139, 92, 246, 0.3);
-}
-
-body.light-theme .desktop-nav a {
-    color: #1a1a2e;
-}
-
-body.light-theme .mobile-menu {
-    background: rgba(255, 255, 255, 0.98);
-}
-
-body.light-theme .mobile-nav a {
-    color: #1a1a2e;
-}
-
-body.light-theme .theme-toggle-btn,
-body.light-theme .mobile-theme-btn {
-    background: rgba(139, 92, 246, 0.1);
-    color: #1a1a2e;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .desktop-nav {
-        display: none;
-    }
-    
-    .theme-toggle-btn {
-        display: none;
-    }
-    
-    .hamburger-btn {
-        display: flex;
-    }
-    
-    .header-content {
-        gap: 1rem;
-    }
-}
-        /* Trust Bar */
+        /* Additional inline styles that aren't in main CSS */
         .trust-bar {
             background: rgba(139,92,246,.05);
             padding: 1.25rem;
@@ -310,7 +25,6 @@ body.light-theme .mobile-theme-btn {
         .trust-icons { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
         .trust-icons span { color: #9090b8; font-size: .88rem; }
 
-        /* Brands Section */
         .brands-section { margin: 3rem 0; text-align: center; }
         .brands-title { color: #a78bfa; font-size: .78rem; letter-spacing: 1.5px; margin-bottom: 1.5rem; }
         .brands-logos {
@@ -338,55 +52,12 @@ body.light-theme .mobile-theme-btn {
             border-radius: 10px;
             border: 1px solid rgba(255,255,255,.07);
         }
-        .brand-item:hover img { border-color: rgba(139,92,246,.4); }
         .brand-item span {
             font-size: .62rem;
             color: #6060a0;
             text-align: center;
         }
-        .brand-item:hover span { color: #a78bfa; }
 
-        /* Services */
-        .section-title { text-align: center; font-size: 2rem; margin: 3rem 0 .75rem; }
-        .gradient { background: linear-gradient(135deg, #8b5cf6, #c084fc); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .section-subtitle { text-align: center; color: #9090b8; max-width: 680px; margin: 0 auto 2rem; }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
-        .service-card {
-            background: #12121a;
-            border: 1px solid rgba(255,255,255,.05);
-            border-radius: 16px;
-            padding: 1.5rem;
-            transition: transform .3s;
-        }
-        .service-card:hover { transform: translateY(-6px); border-color: rgba(139,92,246,.4); }
-        .service-icon { font-size: 2rem; margin-bottom: .75rem; }
-        .service-card h3 { color: #a78bfa; margin-bottom: .5rem; }
-        .problem-line {
-            font-size: .82rem;
-            color: #6060a0;
-            font-style: italic;
-            margin-bottom: .6rem;
-            border-left: 2px solid rgba(139,92,246,.3);
-            padding-left: .6rem;
-        }
-        .service-card p { color: #9090b8; font-size: .88rem; margin-bottom: .75rem; }
-        .feature-list { list-style: none; margin: .5rem 0; }
-        .feature-list li { color: #8080a8; font-size: .82rem; padding: .2rem 0; display: flex; align-items: center; gap: .5rem; }
-        .feature-list li::before { content: "✓"; color: #8b5cf6; }
-        .quote-btn {
-            display: inline-block;
-            margin-top: .5rem;
-            padding: .45rem 1rem;
-            background: rgba(139,92,246,.1);
-            border: 1px solid rgba(139,92,246,.3);
-            border-radius: 6px;
-            color: #a78bfa;
-            text-decoration: none;
-            font-size: .82rem;
-        }
-        .quote-btn:hover { background: #8b5cf6; color: #fff; }
-
-        /* Guarantee */
         .guarantee-banner {
             background: #12121a;
             border-radius: 24px;
@@ -397,7 +68,6 @@ body.light-theme .mobile-theme-btn {
         }
         .highlight { color: #a78bfa; font-weight: 600; }
 
-        /* Steps */
         .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
         .step { text-align: center; }
         .step-number {
@@ -407,10 +77,9 @@ body.light-theme .mobile-theme-btn {
             display: flex; align-items: center; justify-content: center;
             margin: 0 auto 1rem;
             font-weight: bold;
+            color: white;
         }
-        .step p { color: #9090b8; font-size: .83rem; }
 
-        /* Course */
         .course-highlight {
             background: #0e0e1a;
             border-radius: 24px;
@@ -426,11 +95,9 @@ body.light-theme .mobile-theme-btn {
         .course-features li { padding: .2rem 0; display: flex; align-items: center; gap: .5rem; }
         .course-features li::before { content: "✓"; color: #8b5cf6; }
 
-        /* About */
         .about-teaser { text-align: center; margin: 3rem 0 2rem; }
         .about-teaser p { max-width: 680px; margin: 0 auto; color: #9090b8; }
 
-        /* Final CTA */
         .final-cta {
             text-align: center;
             margin: 2rem 0 4rem;
@@ -439,7 +106,6 @@ body.light-theme .mobile-theme-btn {
             border-radius: 24px;
         }
 
-        /* WhatsApp Float */
         .whatsapp-float {
             position: fixed; bottom: 20px; right: 20px;
             background: #25D366;
@@ -448,6 +114,7 @@ body.light-theme .mobile-theme-btn {
             display: flex; align-items: center; justify-content: center;
             transition: transform .3s;
             z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
         .whatsapp-float:hover { transform: scale(1.15); }
 
@@ -457,333 +124,215 @@ body.light-theme .mobile-theme-btn {
             .course-highlight { grid-template-columns: 1fr; }
             .brand-item { width: 65px; }
             .brand-item img { width: 50px; height: 50px; }
+            .trust-icons { gap: 1rem; }
+            .trust-icons span { font-size: .75rem; }
         }
     </style>
 </head>
 <body>
-<!-- Header with Navigation -->
-<header class="main-header">
-    <div class="container">
-        <div class="header-content">
-            <div class="logo">
-                <a href="index.html" class="logo-text">Graphicy</a>
-            </div>
-            
-            <!-- Desktop Navigation -->
-            <nav class="desktop-nav">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="products.html">Products</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-            
-            <!-- Desktop Theme Toggle -->
-            <button id="themeToggleDesktop" class="theme-toggle-btn" aria-label="Switch theme">
-                <span class="theme-icon">🌙</span>
-            </button>
-            
-            <!-- Mobile Hamburger Button -->
-            <button id="hamburgerBtn" class="hamburger-btn" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
+    <!-- Desktop Theme Toggle -->
+    <div class="theme-toggle">
+        <button id="themeToggleDesktop" aria-label="Switch theme">
+            <span class="theme-icon">🌙</span>
+        </button>
     </div>
-    
-    <!-- Mobile Menu (hidden by default) -->
-    <div id="mobileMenu" class="mobile-menu">
+
+    <!-- Header with Navigation -->
+    <header class="main-header">
         <div class="container">
-            <nav class="mobile-nav">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="products.html">Product</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-            <!-- Theme Toggle INSIDE Mobile Menu -->
-            <button id="themeToggleMobile" class="mobile-theme-btn">
-                <span class="theme-icon">🌙</span> Switch Theme
-            </button>
-        </div>
-    </div>
-</header>
-<main>
-    <div class="container">
-
-        <!-- Hero -->
-        <section class="hero">
-            <div class="badge">🇮🇳 Premium Creative Services for Indian Businesses</div>
-            <h1>Your brand looks average.<br><span class="purple">Let's fix that.</span></h1>
-            <p class="subheadline">I help Indian businesses look credible, get noticed, and grow. 7+ years. Custom pricing. Real results.</p>
-            <div class="cta-group">
-                <a href="contact.html" class="btn-primary">📞 Get Free Quote</a>
-                <a href="portfolio.html" class="btn-secondary">🎬 View Portfolio</a>
-            </div>
-        </section>
-
-        <!-- Trust Bar -->
-        <div class="trust-bar">
-            <p>Trusted by businesses across India</p>
-            <div class="trust-icons">
-                <span>⭐ 7+ Years Experience</span>
-                <span>💰 Custom Pricing</span>
-                <span>⚡ 3–7 Day Turnaround</span>
-                <span>🇮🇳 100% India-Based</span>
-                <span>✅ Pay After Approval</span>
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html" class="logo-text">Graphicy</a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="desktop-nav">
+                    <ul>
+                        <li><a href="index.html" class="active">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Mobile Hamburger Button -->
+                <button id="hamburgerBtn" class="hamburger-btn" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
-
-        <!-- Brand Logos - All 20 client logos -->
-        <div class="brands-section">
-            <div class="brands-title">TRUSTED BY BUSINESSES ACROSS INDIA</div>
-            <div class="brands-logos">
-                <div class="brand-item"><img src="client-logos/3-meter-story.png" alt="3 Meter Story"><span>3 Meter Story</span></div>
-                <div class="brand-item"><img src="client-logos/astro.png" alt="Astro"><span>Astro</span></div>
-                <div class="brand-item"><img src="client-logos/bumble-bee.png" alt="Bumble Bee"><span>Bumble Bee</span></div>
-                <div class="brand-item"><img src="client-logos/skination.png" alt="Skination"><span>Skination</span></div>
-                <div class="brand-item"><img src="client-logos/dgd.png" alt="DGD"><span>DGD</span></div>
-                <div class="brand-item"><img src="client-logos/digital-poonam.png" alt="Digital Poonam"><span>Digital Poonam</span></div>
-                <div class="brand-item"><img src="client-logos/dunkey.png" alt="Dunkey"><span>Dunkey</span></div>
-                <div class="brand-item"><img src="client-logos/gayatri-dental-clinic.png" alt="Gayatri Dental"><span>Gayatri Dental</span></div>
-                <div class="brand-item"><img src="client-logos/hira-industries.png" alt="Hira Industries"><span>Hira Industries</span></div>
-                <div class="brand-item"><img src="client-logos/home-storey.png" alt="Home Storey"><span>Home Storey</span></div>
-                <div class="brand-item"><img src="client-logos/ms-financials.png" alt="MS Financials"><span>MS Financials</span></div>
-                <div class="brand-item"><img src="client-logos/rk-polymers.png" alt="RK Polymers"><span>RK Polymers</span></div>
-                <div class="brand-item"><img src="client-logos/noxonlife.png" alt="Noxonlife"><span>Noxonlife</span></div>
-                <div class="brand-item"><img src="client-logos/rk-sharda.png" alt="RK Sharda"><span>RK Sharda</span></div>
-                <div class="brand-item"><img src="client-logos/robonite.png" alt="Robonite"><span>Robonite</span></div>
-                <div class="brand-item"><img src="client-logos/rpm.png" alt="RPM"><span>RPM</span></div>
-                <div class="brand-item"><img src="client-logos/starscape.png" alt="Starscape"><span>Starscape</span></div>
-                <div class="brand-item"><img src="client-logos/zin-zen.png" alt="Zin Zen"><span>Zin Zen</span></div>
-                <div class="brand-item"><img src="client-logos/trisimplify.png" alt="Trisimplify"><span>Trisimplify</span></div>
-                <div class="brand-item"><img src="client-logos/turnip.png" alt="Turnip"><span>Turnip</span></div>
-            </div>
-        </div>
-
-        <!-- Services Section -->
-        <h2 class="section-title">Services That <span class="gradient">Solve Real Problems</span></h2>
-        <p class="section-subtitle">Stop losing clients to competitors who just look better online.</p>
-
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">📱</div>
-                <h3>Social Media Management</h3>
-                <p class="problem-line">"We post randomly and get zero traction."</p>
-                <p>Strategic presence on platforms your customers use.</p>
-                <ul class="feature-list">
-                    <li>Content calendar & scheduling</li>
-                    <li>Instagram, Facebook, LinkedIn</li>
-                    <li>Monthly performance reports</li>
-                </ul>
-                <a href="contact.html" class="quote-btn">Get Quote →</a>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon">🎬</div>
-                <h3>Video Editing / AI Videos</h3>
-                <p class="problem-line">"Our videos look cheap."</p>
-                <p>Professional edits that stop the scroll — for YouTube, Reels, ads.</p>
-                <ul class="feature-list">
-                    <li>Premiere Pro & After Effects</li>
-                    <li>Faceless AI videos</li>
-                    <li>Shorts, Reels & long-form</li>
-                </ul>
-                <a href="contact.html" class="quote-btn">Get Quote →</a>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon">🎨</div>
-                <h3>Graphic Design</h3>
-                <p class="problem-line">"We look smaller than we actually are."</p>
-                <p>Visual identity that makes you the obvious choice.</p>
-                <ul class="feature-list">
-                    <li>Logo & brand identity</li>
-                    <li>Social media creatives</li>
-                    <li>Print & digital assets</li>
-                </ul>
-                <a href="contact.html" class="quote-btn">Get Quote →</a>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon">🌐</div>
-                <h3>Website Design</h3>
-                <p class="problem-line">"People leave without contacting us."</p>
-                <p>Fast, mobile-friendly websites built to convert.</p>
-                <ul class="feature-list">
-                    <li>WordPress & custom sites</li>
-                    <li>SEO-optimized structure</li>
-                    <li>Fast loading & responsive</li>
-                </ul>
-                <a href="contact.html" class="quote-btn">Get Quote →</a>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon">🎮</div>
-                <h3>2D/3D Animation</h3>
-                <p class="problem-line">"We can't explain what we do."</p>
-                <p>Engaging animations that make complex ideas clear.</p>
-                <ul class="feature-list">
-                    <li>2D character & motion</li>
-                    <li>3D product visualization</li>
-                    <li>Minecraft animation style</li>
-                </ul>
-                <a href="contact.html" class="quote-btn">Get Quote →</a>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon">💬</div>
-                <h3>WhatsApp Marketing</h3>
-                <p class="problem-line">"Email campaigns get ignored."</p>
-                <p>Reach customers where they actually are.</p>
-                <ul class="feature-list">
-                    <li>Broadcast & bulk messaging</li>
-                    <li>Auto-reply & chatbots</li>
-                    <li>Click-to-WhatsApp ads</li>
-                </ul>
-                <a href="contact.html" class="quote-btn">Get Quote →</a>
-            </div>
-        </div>
-
-        <!-- Guarantee -->
-        <div class="guarantee-banner">
-            <h3>🔒 No Risk. You Approve Before You Pay.</h3>
-            <p>Fixed price upfront. Transparent updates on WhatsApp. <span class="highlight">Free consultation — no obligation.</span></p>
-        </div>
-
-        <!-- How It Works -->
-        <h2 class="section-title">How It <span class="gradient">Works</span></h2>
-        <div class="steps-grid">
-            <div class="step"><div class="step-number">1</div><h4>Tell Me Your Problem</h4><p>WhatsApp or contact form. 2 minutes.</p></div>
-            <div class="step"><div class="step-number">2</div><h4>Get a Fixed Quote</h4><p>Clear price. No hourly billing.</p></div>
-            <div class="step"><div class="step-number">3</div><h4>I Deliver Fast</h4><p>Most projects in 3–7 days.</p></div>
-            <div class="step"><div class="step-number">4</div><h4>Approve, Then Pay</h4><p>Pay only when satisfied.</p></div>
-        </div>
-
-        <!-- Course Highlight -->
-        <div class="course-highlight">
-            <div>
-                <h3>📚 Learn Video Editing — One-on-One</h3>
-                <p>Personalised training on Mobile or PC — not generic pre-recorded lessons.</p>
-                <ul class="course-features">
-                    <li>Mobile: CapCut, Inshot, VN</li>
-                    <li>PC: Premiere Pro, After Effects</li>
-                    <li>Real projects & portfolio building</li>
-                </ul>
-                <a href="courses.html" style="color:#a78bfa;">Learn More →</a>
-            </div>
-            <div style="background:rgba(139,92,246,.08); border-radius:16px; padding:2rem; text-align:center;">
-                <span style="font-size:3rem;">🎬</span>
-                <p style="color:#a78bfa; font-weight:600; margin-top:.75rem;">One-on-One Training</p>
-                <p style="font-size:.82rem; color:#7070a0;">Mobile • PC • Both</p>
-            </div>
-        </div>
-
-        <!-- About -->
-        <div class="about-teaser">
-            <h2>👋 I'm <span style="color:#a78bfa;">Sanjay Meher</span></h2>
-            <p>7+ years in video editing & graphic design. 2+ years in digital marketing. I work directly with you — no account managers, no handoffs.</p>
-            <a href="about.html" style="color:#a78bfa; display:inline-block; margin-top:1rem;">Read my story →</a>
-        </div>
-
-        <!-- Final CTA -->
-        <div class="final-cta">
-            <h3>Ready to stop blending in?</h3>
-            <p>Free consultation — no pressure, no obligation.</p>
-            <a href="contact.html" class="btn-primary" style="margin-top:1rem; display:inline-block;">📞 Get Your Free Quote →</a>
-        </div>
-
-    </div>
-</main>
-
-<!-- WhatsApp Float -->
-<a href="https://wa.me/918984636695?text=Hi%20Sanjay%2C%20I%20need%20a%20custom%20quote%20for%20my%20business."
-   class="whatsapp-float" target="_blank">
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
-        <path d="M12.032 2.017c-5.523 0-10 4.477-10 10 0 1.866.511 3.612 1.4 5.118l-1.452 4.77 4.86-1.453a9.96 9.96 0 0 0 5.192 1.565c5.523 0 10-4.477 10-10s-4.477-10-10-10zm0 18.5a8.456 8.456 0 0 1-4.288-1.164l-.308-.185-2.882.861.919-2.808-.2-.32a8.477 8.477 0 0 1-1.241-4.384c0-4.686 3.814-8.5 8.5-8.5s8.5 3.814 8.5 8.5-3.814 8.5-8.5 8.5z"/>
-    </svg>
-</a>
-<script>
-    // Theme Toggle Functionality
-    function initTheme() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            document.body.classList.add('light-theme');
-            updateThemeIcons('light');
-        } else {
-            updateThemeIcons('dark');
-        }
-    }
-
-    function updateThemeIcons(theme) {
-        const isLight = theme === 'light';
-        const desktopIcon = document.querySelector('#themeToggleDesktop .theme-icon');
-        const mobileIcon = document.querySelector('#themeToggleMobile .theme-icon');
         
-        if (desktopIcon) {
-            desktopIcon.textContent = isLight ? '☀️' : '🌙';
-        }
-        if (mobileIcon) {
-            mobileIcon.textContent = isLight ? '☀️' : '🌙';
-            const mobileBtnText = document.querySelector('#themeToggleMobile');
-            if (mobileBtnText && !isLight) {
-                mobileBtnText.innerHTML = '<span class="theme-icon">🌙</span> Switch Theme';
-            } else if (mobileBtnText && isLight) {
-                mobileBtnText.innerHTML = '<span class="theme-icon">☀️</span> Switch Theme';
-            }
-        }
-    }
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu">
+            <div class="container">
+                <nav class="mobile-nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <!-- Theme Toggle INSIDE Mobile Menu -->
+                <div class="mobile-theme-toggle">
+                    <button id="themeToggleMobile" class="mobile-theme-btn">
+                        <span class="theme-icon">🌙</span> Switch Theme
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
 
-    function toggleTheme() {
-        const isLight = document.body.classList.toggle('light-theme');
-        const newTheme = isLight ? 'light' : 'dark';
-        localStorage.setItem('theme', newTheme);
-        updateThemeIcons(newTheme);
-    }
+    <main>
+        <div class="container">
 
-    // Mobile Menu Toggle
-    function initMobileMenu() {
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        
-        if (hamburgerBtn && mobileMenu) {
-            hamburgerBtn.addEventListener('click', () => {
-                hamburgerBtn.classList.toggle('active');
-                mobileMenu.classList.toggle('active');
-                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-            });
-            
-            // Close menu when clicking a link
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburgerBtn.classList.remove('active');
-                    mobileMenu.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-            });
-        }
-    }
+            <!-- Hero -->
+            <section class="hero">
+                <div class="badge">🇮🇳 Premium Creative Services for Indian Businesses</div>
+                <h1>Your brand looks average.<br><span class="purple">Let's fix that.</span></h1>
+                <p class="subheadline">I help Indian businesses look credible, get noticed, and grow. 7+ years. Custom pricing. Real results.</p>
+                <div class="hero-buttons">
+                    <a href="contact.html" class="btn btn-primary">📞 Get Free Quote</a>
+                    <a href="portfolio.html" class="btn btn-secondary">🎬 View Portfolio</a>
+                </div>
+            </section>
 
-    // Event Listeners
-    document.addEventListener('DOMContentLoaded', () => {
-        initTheme();
-        initMobileMenu();
-        
-        const desktopToggle = document.getElementById('themeToggleDesktop');
-        const mobileToggle = document.getElementById('themeToggleMobile');
-        
-        if (desktopToggle) {
-            desktopToggle.addEventListener('click', toggleTheme);
-        }
-        if (mobileToggle) {
-            mobileToggle.addEventListener('click', toggleTheme);
-        }
-    });
-</script><script src ="js/main.js"></script>
+            <!-- Trust Bar -->
+            <div class="trust-bar">
+                <p>Trusted by businesses across India</p>
+                <div class="trust-icons">
+                    <span>⭐ 7+ Years Experience</span>
+                    <span>💰 Custom Pricing</span>
+                    <span>⚡ 3–7 Day Turnaround</span>
+                    <span>🇮🇳 100% India-Based</span>
+                    <span>✅ Pay After Approval</span>
+                </div>
+            </div>
+
+            <!-- Brand Logos -->
+            <div class="brands-section">
+                <div class="brands-title">TRUSTED BY BUSINESSES ACROSS INDIA</div>
+                <div class="brands-logos">
+                    <div class="brand-item"><img src="client-logos/3-meter-story.png" alt="3 Meter Story"><span>3 Meter Story</span></div>
+                    <div class="brand-item"><img src="client-logos/astro.png" alt="Astro"><span>Astro</span></div>
+                    <div class="brand-item"><img src="client-logos/bumble-bee.png" alt="Bumble Bee"><span>Bumble Bee</span></div>
+                    <div class="brand-item"><img src="client-logos/skination.png" alt="Skination"><span>Skination</span></div>
+                    <div class="brand-item"><img src="client-logos/dgd.png" alt="DGD"><span>DGD</span></div>
+                    <div class="brand-item"><img src="client-logos/digital-poonam.png" alt="Digital Poonam"><span>Digital Poonam</span></div>
+                    <div class="brand-item"><img src="client-logos/dunkey.png" alt="Dunkey"><span>Dunkey</span></div>
+                    <div class="brand-item"><img src="client-logos/gayatri-dental-clinic.png" alt="Gayatri Dental"><span>Gayatri Dental</span></div>
+                    <div class="brand-item"><img src="client-logos/hira-industries.png" alt="Hira Industries"><span>Hira Industries</span></div>
+                    <div class="brand-item"><img src="client-logos/home-storey.png" alt="Home Storey"><span>Home Storey</span></div>
+                    <div class="brand-item"><img src="client-logos/ms-financials.png" alt="MS Financials"><span>MS Financials</span></div>
+                    <div class="brand-item"><img src="client-logos/rk-polymers.png" alt="RK Polymers"><span>RK Polymers</span></div>
+                    <div class="brand-item"><img src="client-logos/noxonlife.png" alt="Noxonlife"><span>Noxonlife</span></div>
+                    <div class="brand-item"><img src="client-logos/rk-sharda.png" alt="RK Sharda"><span>RK Sharda</span></div>
+                    <div class="brand-item"><img src="client-logos/robonite.png" alt="Robonite"><span>Robonite</span></div>
+                    <div class="brand-item"><img src="client-logos/rpm.png" alt="RPM"><span>RPM</span></div>
+                    <div class="brand-item"><img src="client-logos/starscape.png" alt="Starscape"><span>Starscape</span></div>
+                    <div class="brand-item"><img src="client-logos/zin-zen.png" alt="Zin Zen"><span>Zin Zen</span></div>
+                    <div class="brand-item"><img src="client-logos/trisimplify.png" alt="Trisimplify"><span>Trisimplify</span></div>
+                    <div class="brand-item"><img src="client-logos/turnip.png" alt="Turnip"><span>Turnip</span></div>
+                </div>
+            </div>
+
+            <!-- Services Section -->
+            <h2 class="section-title">Services That <span class="gradient">Solve Real Problems</span></h2>
+            <p class="section-subtitle">Stop losing clients to competitors who just look better online.</p>
+
+            <div id="servicesGrid" class="services-grid">
+                <!-- Services will be dynamically loaded from Supabase -->
+                <div style="text-align:center; padding:40px;">Loading services...</div>
+            </div>
+
+            <!-- Guarantee -->
+            <div class="guarantee-banner">
+                <h3>🔒 No Risk. You Approve Before You Pay.</h3>
+                <p>Fixed price upfront. Transparent updates on WhatsApp. <span class="highlight">Free consultation — no obligation.</span></p>
+            </div>
+
+            <!-- How It Works -->
+            <h2 class="section-title">How It <span class="gradient">Works</span></h2>
+            <div class="steps-grid">
+                <div class="step"><div class="step-number">1</div><h4>Tell Me Your Problem</h4><p>WhatsApp or contact form. 2 minutes.</p></div>
+                <div class="step"><div class="step-number">2</div><h4>Get a Fixed Quote</h4><p>Clear price. No hourly billing.</p></div>
+                <div class="step"><div class="step-number">3</div><h4>I Deliver Fast</h4><p>Most projects in 3–7 days.</p></div>
+                <div class="step"><div class="step-number">4</div><h4>Approve, Then Pay</h4><p>Pay only when satisfied.</p></div>
+            </div>
+
+            <!-- Course Highlight -->
+            <div class="course-highlight">
+                <div>
+                    <h3>📚 Learn Video Editing — One-on-One</h3>
+                    <p>Personalised training on Mobile or PC — not generic pre-recorded lessons.</p>
+                    <ul class="course-features">
+                        <li>Mobile: CapCut, Inshot, VN</li>
+                        <li>PC: Premiere Pro, After Effects</li>
+                        <li>Real projects & portfolio building</li>
+                    </ul>
+                    <a href="courses.html" style="color:#a78bfa;">Learn More →</a>
+                </div>
+                <div style="background:rgba(139,92,246,.08); border-radius:16px; padding:2rem; text-align:center;">
+                    <span style="font-size:3rem;">🎬</span>
+                    <p style="color:#a78bfa; font-weight:600; margin-top:.75rem;">One-on-One Training</p>
+                    <p style="font-size:.82rem; color:#7070a0;">Mobile • PC • Both</p>
+                </div>
+            </div>
+
+            <!-- About -->
+            <div class="about-teaser">
+                <h2>👋 I'm <span style="color:#a78bfa;">Sanjay Meher</span></h2>
+                <p>7+ years in video editing & graphic design. 2+ years in digital marketing. I work directly with you — no account managers, no handoffs.</p>
+                <a href="about.html" style="color:#a78bfa; display:inline-block; margin-top:1rem;">Read my story →</a>
+            </div>
+
+            <!-- Final CTA -->
+            <div class="final-cta">
+                <h3>Ready to stop blending in?</h3>
+                <p>Free consultation — no pressure, no obligation.</p>
+                <a href="contact.html" class="btn btn-primary" style="margin-top:1rem; display:inline-block;">📞 Get Your Free Quote →</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-text">Graphicy</span>
+                    <p>Video Editor, Graphic Designer & AI Specialist</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="services.html">Services</a>
+                    <a href="products.html">Products</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="footer-social">
+                    <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Graphicy. Built with <i class="fas fa-heart"></i> in India.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/918984636695?text=Hi%20Sanjay%2C%20I%20need%20a%20custom%20quote%20for%20my%20business." class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp" style="font-size: 32px; color: white;"></i>
+    </a>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
