@@ -10,6 +10,123 @@
     <link rel="icon" type="image/png" href="https://graphicy.art.blog/wp-content/uploads/2023/01/cropped-Graphicy-Logo-1-32x32.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Scrolling Logo Strip Styles */
+        .brands-section {
+            margin: 3rem 0;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .brands-title {
+            color: #a78bfa;
+            font-size: .78rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Scrolling Container */
+        .logo-scroll {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            background: transparent;
+        }
+
+        .logo-track {
+            display: flex;
+            animation: scrollLogos 30s linear infinite;
+            gap: 2rem;
+            width: fit-content;
+        }
+
+        /* Pause animation on hover */
+        .logo-scroll:hover .logo-track {
+            animation-play-state: paused;
+        }
+
+        .brand-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .4rem;
+            width: 80px;
+            transition: transform .25s;
+            flex-shrink: 0;
+        }
+
+        .brand-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .brand-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            background: rgba(255,255,255,.05);
+            padding: 6px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,.07);
+            transition: all 0.3s ease;
+        }
+
+        .brand-item:hover img {
+            border-color: rgba(139,92,246,.4);
+            transform: scale(1.05);
+        }
+
+        .brand-item span {
+            font-size: .62rem;
+            color: #6060a0;
+            text-align: center;
+        }
+
+        .brand-item:hover span {
+            color: #a78bfa;
+        }
+
+        /* Animation Keyframes */
+        @keyframes scrollLogos {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Light Theme Styles for Scrolling Strip */
+        body.light-theme .brand-item img {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme .brand-item span {
+            color: #8a8aaa;
+        }
+
+        body.light-theme .brand-item:hover span {
+            color: #6d28d9;
+        }
+
+        /* Responsive - adjust speed on mobile */
+        @media (max-width: 768px) {
+            .brand-item {
+                width: 65px;
+            }
+            .brand-item img {
+                width: 50px;
+                height: 50px;
+            }
+            .logo-track {
+                animation-duration: 20s;
+                gap: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Desktop Theme Toggle -->
@@ -95,30 +212,54 @@
                 </div>
             </div>
 
-            <!-- Brand Logos -->
+            <!-- Scrolling Brand Logos Strip -->
             <div class="brands-section">
                 <div class="brands-title">TRUSTED BY BUSINESSES ACROSS INDIA</div>
-                <div class="brands-logos">
-                    <div class="brand-item"><img src="client-logos/3-meter-story.png" alt="3 Meter Story"><span>3 Meter Story</span></div>
-                    <div class="brand-item"><img src="client-logos/astro.png" alt="Astro"><span>Astro</span></div>
-                    <div class="brand-item"><img src="client-logos/bumble-bee.png" alt="Bumble Bee"><span>Bumble Bee</span></div>
-                    <div class="brand-item"><img src="client-logos/skination.png" alt="Skination"><span>Skination</span></div>
-                    <div class="brand-item"><img src="client-logos/dgd.png" alt="DGD"><span>DGD</span></div>
-                    <div class="brand-item"><img src="client-logos/digital-poonam.png" alt="Digital Poonam"><span>Digital Poonam</span></div>
-                    <div class="brand-item"><img src="client-logos/dunkey.png" alt="Dunkey"><span>Dunkey</span></div>
-                    <div class="brand-item"><img src="client-logos/gayatri-dental-clinic.png" alt="Gayatri Dental"><span>Gayatri Dental</span></div>
-                    <div class="brand-item"><img src="client-logos/hira-industries.png" alt="Hira Industries"><span>Hira Industries</span></div>
-                    <div class="brand-item"><img src="client-logos/home-storey.png" alt="Home Storey"><span>Home Storey</span></div>
-                    <div class="brand-item"><img src="client-logos/ms-financials.png" alt="MS Financials"><span>MS Financials</span></div>
-                    <div class="brand-item"><img src="client-logos/rk-polymers.png" alt="RK Polymers"><span>RK Polymers</span></div>
-                    <div class="brand-item"><img src="client-logos/noxonlife.png" alt="Noxonlife"><span>Noxonlife</span></div>
-                    <div class="brand-item"><img src="client-logos/rk-sharda.png" alt="RK Sharda"><span>RK Sharda</span></div>
-                    <div class="brand-item"><img src="client-logos/robonite.png" alt="Robonite"><span>Robonite</span></div>
-                    <div class="brand-item"><img src="client-logos/rpm.png" alt="RPM"><span>RPM</span></div>
-                    <div class="brand-item"><img src="client-logos/starscape.png" alt="Starscape"><span>Starscape</span></div>
-                    <div class="brand-item"><img src="client-logos/zin-zen.png" alt="Zin Zen"><span>Zin Zen</span></div>
-                    <div class="brand-item"><img src="client-logos/trisimplify.png" alt="Trisimplify"><span>Trisimplify</span></div>
-                    <div class="brand-item"><img src="client-logos/turnip.png" alt="Turnip"><span>Turnip</span></div>
+                <div class="logo-scroll">
+                    <div class="logo-track">
+                        <!-- First set of logos -->
+                        <div class="brand-item"><img src="client-logos/3-meter-story.png" alt="3 Meter Story"><span>3 Meter Story</span></div>
+                        <div class="brand-item"><img src="client-logos/astro.png" alt="Astro"><span>Astro</span></div>
+                        <div class="brand-item"><img src="client-logos/bumble-bee.png" alt="Bumble Bee"><span>Bumble Bee</span></div>
+                        <div class="brand-item"><img src="client-logos/skination.png" alt="Skination"><span>Skination</span></div>
+                        <div class="brand-item"><img src="client-logos/dgd.png" alt="DGD"><span>DGD</span></div>
+                        <div class="brand-item"><img src="client-logos/digital-poonam.png" alt="Digital Poonam"><span>Digital Poonam</span></div>
+                        <div class="brand-item"><img src="client-logos/dunkey.png" alt="Dunkey"><span>Dunkey</span></div>
+                        <div class="brand-item"><img src="client-logos/gayatri-dental-clinic.png" alt="Gayatri Dental"><span>Gayatri Dental</span></div>
+                        <div class="brand-item"><img src="client-logos/hira-industries.png" alt="Hira Industries"><span>Hira Industries</span></div>
+                        <div class="brand-item"><img src="client-logos/home-storey.png" alt="Home Storey"><span>Home Storey</span></div>
+                        <div class="brand-item"><img src="client-logos/ms-financials.png" alt="MS Financials"><span>MS Financials</span></div>
+                        <div class="brand-item"><img src="client-logos/rk-polymers.png" alt="RK Polymers"><span>RK Polymers</span></div>
+                        <div class="brand-item"><img src="client-logos/noxonlife.png" alt="Noxonlife"><span>Noxonlife</span></div>
+                        <div class="brand-item"><img src="client-logos/rk-sharda.png" alt="RK Sharda"><span>RK Sharda</span></div>
+                        <div class="brand-item"><img src="client-logos/robonite.png" alt="Robonite"><span>Robonite</span></div>
+                        <div class="brand-item"><img src="client-logos/rpm.png" alt="RPM"><span>RPM</span></div>
+                        <div class="brand-item"><img src="client-logos/starscape.png" alt="Starscape"><span>Starscape</span></div>
+                        <div class="brand-item"><img src="client-logos/zin-zen.png" alt="Zin Zen"><span>Zin Zen</span></div>
+                        <div class="brand-item"><img src="client-logos/trisimplify.png" alt="Trisimplify"><span>Trisimplify</span></div>
+                        <div class="brand-item"><img src="client-logos/turnip.png" alt="Turnip"><span>Turnip</span></div>
+                        <!-- Duplicate set for seamless scrolling -->
+                        <div class="brand-item"><img src="client-logos/3-meter-story.png" alt="3 Meter Story"><span>3 Meter Story</span></div>
+                        <div class="brand-item"><img src="client-logos/astro.png" alt="Astro"><span>Astro</span></div>
+                        <div class="brand-item"><img src="client-logos/bumble-bee.png" alt="Bumble Bee"><span>Bumble Bee</span></div>
+                        <div class="brand-item"><img src="client-logos/skination.png" alt="Skination"><span>Skination</span></div>
+                        <div class="brand-item"><img src="client-logos/dgd.png" alt="DGD"><span>DGD</span></div>
+                        <div class="brand-item"><img src="client-logos/digital-poonam.png" alt="Digital Poonam"><span>Digital Poonam</span></div>
+                        <div class="brand-item"><img src="client-logos/dunkey.png" alt="Dunkey"><span>Dunkey</span></div>
+                        <div class="brand-item"><img src="client-logos/gayatri-dental-clinic.png" alt="Gayatri Dental"><span>Gayatri Dental</span></div>
+                        <div class="brand-item"><img src="client-logos/hira-industries.png" alt="Hira Industries"><span>Hira Industries</span></div>
+                        <div class="brand-item"><img src="client-logos/home-storey.png" alt="Home Storey"><span>Home Storey</span></div>
+                        <div class="brand-item"><img src="client-logos/ms-financials.png" alt="MS Financials"><span>MS Financials</span></div>
+                        <div class="brand-item"><img src="client-logos/rk-polymers.png" alt="RK Polymers"><span>RK Polymers</span></div>
+                        <div class="brand-item"><img src="client-logos/noxonlife.png" alt="Noxonlife"><span>Noxonlife</span></div>
+                        <div class="brand-item"><img src="client-logos/rk-sharda.png" alt="RK Sharda"><span>RK Sharda</span></div>
+                        <div class="brand-item"><img src="client-logos/robonite.png" alt="Robonite"><span>Robonite</span></div>
+                        <div class="brand-item"><img src="client-logos/rpm.png" alt="RPM"><span>RPM</span></div>
+                        <div class="brand-item"><img src="client-logos/starscape.png" alt="Starscape"><span>Starscape</span></div>
+                        <div class="brand-item"><img src="client-logos/zin-zen.png" alt="Zin Zen"><span>Zin Zen</span></div>
+                        <div class="brand-item"><img src="client-logos/trisimplify.png" alt="Trisimplify"><span>Trisimplify</span></div>
+                        <div class="brand-item"><img src="client-logos/turnip.png" alt="Turnip"><span>Turnip</span></div>
+                    </div>
                 </div>
             </div>
 
