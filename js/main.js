@@ -1,10 +1,6 @@
 // ==================== CONFIGURATION ====================
 const SUPABASE_URL = 'https://bvavtdyxuzzabzgodbjw.supabase.co'; // ← Replace with your Supabase URL
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2YXZ0ZHl4dXp6YWJ6Z29kYmp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxOTc2OTksImV4cCI6MjA4OTc3MzY5OX0.gqfiaeDtWBtuyj_CQCaiySVA2-VmuM9CVvd5N-gRlV8';             // ← Replace with your Supabase anon key
-
-// Kept as fallback only (contact form POST still uses Apps Script)
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbympMOqYHBEWIerQyqDAQ5p4CUiJUqcL45UXswWrRD1Z8IJKj2wOMs9KpfyjToEfC-T6w/exec';
-
 // ==================== SUPABASE FETCH HELPER ====================
 async function supabaseFetch(table) {
   const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=*`, {
@@ -207,7 +203,6 @@ function initContactForm() {
     submitBtn.disabled   = true;
 
     try {
-      // Write lead directly to Supabase
       const res = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
         method: 'POST',
         headers: {
@@ -219,33 +214,14 @@ function initContactForm() {
         body: JSON.stringify({ ...data, status: 'New' })
       });
 
-      if (!res.ok) throw new Error('Supabase insert failed');
-
-      // Also notify via Apps Script (email alert) — fire and forget
-      fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode:   'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'contact', ...data })
-      }).catch(() => {});
+      if (!res.ok) throw new Error(`Supabase error: ${res.status}`);
 
       showNotification('✅ Thank you! I will contact you on WhatsApp within 24 hours.', 'success');
       contactForm.reset();
 
     } catch(error) {
-      // Fallback to Apps Script only
-      try {
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          mode:   'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type: 'contact', ...data })
-        });
-        showNotification('✅ Message sent! I will contact you soon.', 'success');
-        contactForm.reset();
-      } catch(e) {
-        showNotification('❌ Something went wrong. Please WhatsApp directly.', 'error');
-      }
+      console.error('Lead save failed:', error);
+      showNotification('❌ Something went wrong. Please WhatsApp directly.', 'error');
     } finally {
       submitBtn.innerHTML = originalHTML;
       submitBtn.disabled  = false;
