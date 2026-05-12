@@ -173,26 +173,10 @@ function applyProducts(products) {
 }
 
 // ==================== LOAD ALL DATA FROM SUPABASE ====================
+// ==================== LOAD ALL DATA FROM SUPABASE (NO CACHE - FRESH EVERY TIME) ====================
 async function loadAllData() {
-  // Check cache (5 min TTL)
-  const cached   = localStorage.getItem('siteData');
-  const cacheAge = localStorage.getItem('siteDataTime');
-  const isFresh  = cacheAge && (Date.now() - Number(cacheAge)) < 5 * 60 * 1000;
-
-  if (cached && isFresh) {
-    try {
-      const data = JSON.parse(cached);
-      applyColors(data.colors);
-      applySettings(data.settings);
-      applyProducts(data.products);
-      return;
-    } catch(e) {
-      localStorage.removeItem('siteData');
-    }
-  }
-
   try {
-    // Fetch all 3 in parallel — much faster than sequential
+    // Fetch all 3 in parallel — fresh every time
     const [colors, settings, products] = await Promise.all([
       supabaseFetch('colors'),
       supabaseFetch('settings'),
@@ -203,20 +187,30 @@ async function loadAllData() {
     applySettings(settings);
     applyProducts(products);
 
-    // Cache for next visit
-    localStorage.setItem('siteData',     JSON.stringify({ colors, settings, products }));
-    localStorage.setItem('siteDataTime', Date.now());
+    // Clear any old cached data if it exists
+    localStorage.removeItem('siteData');
+    localStorage.removeItem('siteDataTime');
 
   } catch(error) {
-    console.error('Supabase load failed, page will use CSS defaults:', error);
-    // Products grid fallback message
+    console.error('Supabase load failed, page will use defaults:', error);
+    
+    // Show error message on products grid if it exists
     const grid = document.getElementById('productsGrid');
     if (grid && grid.innerHTML.includes('fa-spinner')) {
-      grid.innerHTML = '<p style="text-align:center;color:#ef4444;">Unable to load products. Please try again.</p>';
+      grid.innerHTML = '<p style="text-align:center;color:#ef4444;">⚠️ Unable to load data. Please refresh the page.</p>';
+    }
+    
+    // Also show error on contact page if applicable
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      const note = document.querySelector('.form-note');
+      if (note) {
+        note.innerHTML = '⚠️ Connection issue. Please WhatsApp directly or refresh.';
+        note.style.color = '#ef4444';
+      }
     }
   }
 }
-
 // ==================== CONTACT FORM HANDLER ====================
 function initContactForm() {
   const contactForm = document.getElementById('contactForm');
