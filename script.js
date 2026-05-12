@@ -1,51 +1,116 @@
-// Theme Toggle
+// Theme Toggle - Desktop (keep floating button for desktop)
 const themeBtn = document.getElementById('themeBtn');
+const mobileThemeBtn = document.getElementById('mobileThemeBtn');
 const body = document.body;
-const themeIcon = themeBtn.querySelector('i');
+
+// Get icon elements
+let desktopIcon, mobileIcon;
+
+if (themeBtn) {
+    desktopIcon = themeBtn.querySelector('i');
+}
 
 // Load saved theme
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'light') {
     body.classList.add('light-theme');
-    themeIcon.classList.remove('fa-moon');
-    themeIcon.classList.add('fa-sun');
+    if (desktopIcon) {
+        desktopIcon.classList.remove('fa-moon');
+        desktopIcon.classList.add('fa-sun');
+    }
+    if (mobileThemeBtn) {
+        const mobileIcon = mobileThemeBtn.querySelector('i');
+        mobileIcon.classList.remove('fa-moon');
+        mobileIcon.classList.add('fa-sun');
+        mobileThemeBtn.innerHTML = '<i class="fas fa-sun"></i> Light/Dark Mode';
+    }
 }
 
-themeBtn.addEventListener('click', () => {
+// Desktop theme toggle
+if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+        toggleTheme();
+    });
+}
+
+// Mobile theme toggle (inside hamburger menu)
+if (mobileThemeBtn) {
+    mobileThemeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleTheme();
+        // Close mobile menu after theme change (optional)
+        // mobileMenu.classList.remove('active');
+    });
+}
+
+// Theme toggle function
+function toggleTheme() {
     body.classList.toggle('light-theme');
     const isLight = body.classList.contains('light-theme');
     
-    if (isLight) {
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-        localStorage.setItem('theme', 'light');
-    } else {
-        themeIcon.classList.remove('fa-sun');
-        themeIcon.classList.add('fa-moon');
-        localStorage.setItem('theme', 'dark');
+    // Update desktop button icon
+    if (desktopIcon) {
+        if (isLight) {
+            desktopIcon.classList.remove('fa-moon');
+            desktopIcon.classList.add('fa-sun');
+        } else {
+            desktopIcon.classList.remove('fa-sun');
+            desktopIcon.classList.add('fa-moon');
+        }
     }
-});
+    
+    // Update mobile button icon
+    if (mobileThemeBtn) {
+        const mobileIcon = mobileThemeBtn.querySelector('i');
+        if (isLight) {
+            mobileIcon.classList.remove('fa-moon');
+            mobileIcon.classList.add('fa-sun');
+            mobileThemeBtn.innerHTML = '<i class="fas fa-sun"></i> Light/Dark Mode';
+        } else {
+            mobileIcon.classList.remove('fa-sun');
+            mobileIcon.classList.add('fa-moon');
+            mobileThemeBtn.innerHTML = '<i class="fas fa-moon"></i> Dark/Light Mode';
+        }
+    }
+    
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+}
 
 // Mobile Menu Toggle
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 
-mobileMenuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('active');
-    const icon = mobileMenuBtn.querySelector('i');
-    icon.classList.toggle('fa-bars');
-    icon.classList.toggle('fa-times');
-});
+if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('active');
+        const icon = mobileMenuBtn.querySelector('i');
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-times');
+    });
+}
 
-// Close mobile menu when clicking a link
+// Close mobile menu when clicking a link (except theme toggle)
 document.querySelectorAll('.mobile-menu a').forEach(link => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (e) => {
+        // Don't close if it's the theme toggle button
+        if (link.id === 'mobileThemeBtn') {
+            return;
+        }
         mobileMenu.classList.remove('active');
         const icon = mobileMenuBtn.querySelector('i');
         icon.classList.add('fa-bars');
         icon.classList.remove('fa-times');
     });
 });
+
+// Also close when clicking the theme button inside mobile menu
+if (mobileThemeBtn) {
+    mobileThemeBtn.addEventListener('click', () => {
+        // Don't close menu on theme toggle - let user see the change
+        // But if you want to close, uncomment below:
+        // mobileMenu.classList.remove('active');
+    });
+}
 
 // Smooth scroll for all anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -61,7 +126,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Contact Form Handler (stores in Google Sheets via Apps Script)
+// Contact Form Handler
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
@@ -72,6 +137,7 @@ if (contactForm) {
             name: formData.get('name'),
             email: formData.get('email'),
             phone: formData.get('phone'),
+            service: formData.get('service'),
             message: formData.get('message'),
             timestamp: new Date().toISOString()
         };
@@ -86,7 +152,7 @@ if (contactForm) {
             // Replace with your Google Apps Script URL
             const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
             
-            const response = await fetch(SCRIPT_URL, {
+            await fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
@@ -98,7 +164,7 @@ if (contactForm) {
             alert('✅ Message sent! I will contact you on WhatsApp within 24 hours.');
             contactForm.reset();
         } catch (error) {
-            // Fallback: Store in localStorage if Google Sheets fails
+            // Fallback: Store in localStorage
             const leads = JSON.parse(localStorage.getItem('leads') || '[]');
             leads.push(data);
             localStorage.setItem('leads', JSON.stringify(leads));
@@ -111,7 +177,7 @@ if (contactForm) {
     });
 }
 
-// Add intersection observer for fade-in animations (optional)
+// Add intersection observer for fade-in animations
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -126,8 +192,8 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Apply animation to sections
-document.querySelectorAll('section, .service-card, .skill-category, .contact-card').forEach(el => {
+// Apply animation to elements
+document.querySelectorAll('.service-card, .service-card-full, .step-card, .faq-item, .contact-card-large').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
