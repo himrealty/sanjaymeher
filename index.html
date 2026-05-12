@@ -33,6 +33,55 @@
             margin-bottom: 1.5rem;
             border: 1px solid rgba(139,92,246,.3);
         }
+        /* Light Theme Styles */
+body.light-theme {
+    background: #f5f5f7;
+    color: #1a1a2e;
+}
+
+body.light-theme .service-card,
+body.light-theme .guarantee-banner,
+body.light-theme .course-highlight {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .service-card p,
+body.light-theme .step p,
+body.light-theme .about-teaser p,
+body.light-theme .section-subtitle,
+body.light-theme .subheadline {
+    color: #4a4a6a;
+}
+
+body.light-theme .trust-bar {
+    background: rgba(139, 92, 246, 0.08);
+}
+
+body.light-theme .brand-item span {
+    color: #6060a0;
+}
+
+body.light-theme .problem-line {
+    color: #8a8aaa;
+}
+
+body.light-theme .final-cta {
+    background: rgba(139, 92, 246, 0.08);
+}
+
+body.light-theme .service-card h3 {
+    color: #6d28d9;
+}
+
+body.light-theme .service-icon {
+    filter: brightness(0.8);
+}
+
+body.light-theme .brand-item img {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.1);
+}
         h1 { font-size: 3rem; font-weight: 700; margin-bottom: 1rem; }
         h1 .purple { color: #a78bfa; }
         .subheadline {
@@ -659,6 +708,82 @@ body.light-theme .mobile-theme-btn {
         <path d="M12.032 2.017c-5.523 0-10 4.477-10 10 0 1.866.511 3.612 1.4 5.118l-1.452 4.77 4.86-1.453a9.96 9.96 0 0 0 5.192 1.565c5.523 0 10-4.477 10-10s-4.477-10-10-10zm0 18.5a8.456 8.456 0 0 1-4.288-1.164l-.308-.185-2.882.861.919-2.808-.2-.32a8.477 8.477 0 0 1-1.241-4.384c0-4.686 3.814-8.5 8.5-8.5s8.5 3.814 8.5 8.5-3.814 8.5-8.5 8.5z"/>
     </svg>
 </a>
+<script>
+    // Theme Toggle Functionality
+    function initTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-theme');
+            updateThemeIcons('light');
+        } else {
+            updateThemeIcons('dark');
+        }
+    }
 
+    function updateThemeIcons(theme) {
+        const isLight = theme === 'light';
+        const desktopIcon = document.querySelector('#themeToggleDesktop .theme-icon');
+        const mobileIcon = document.querySelector('#themeToggleMobile .theme-icon');
+        
+        if (desktopIcon) {
+            desktopIcon.textContent = isLight ? '☀️' : '🌙';
+        }
+        if (mobileIcon) {
+            mobileIcon.textContent = isLight ? '☀️' : '🌙';
+            const mobileBtnText = document.querySelector('#themeToggleMobile');
+            if (mobileBtnText && !isLight) {
+                mobileBtnText.innerHTML = '<span class="theme-icon">🌙</span> Switch Theme';
+            } else if (mobileBtnText && isLight) {
+                mobileBtnText.innerHTML = '<span class="theme-icon">☀️</span> Switch Theme';
+            }
+        }
+    }
+
+    function toggleTheme() {
+        const isLight = document.body.classList.toggle('light-theme');
+        const newTheme = isLight ? 'light' : 'dark';
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcons(newTheme);
+    }
+
+    // Mobile Menu Toggle
+    function initMobileMenu() {
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        if (hamburgerBtn && mobileMenu) {
+            hamburgerBtn.addEventListener('click', () => {
+                hamburgerBtn.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
+            
+            // Close menu when clicking a link
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburgerBtn.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+    }
+
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', () => {
+        initTheme();
+        initMobileMenu();
+        
+        const desktopToggle = document.getElementById('themeToggleDesktop');
+        const mobileToggle = document.getElementById('themeToggleMobile');
+        
+        if (desktopToggle) {
+            desktopToggle.addEventListener('click', toggleTheme);
+        }
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', toggleTheme);
+        }
+    });
+</script>
 </body>
 </html>
