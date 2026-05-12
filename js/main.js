@@ -87,16 +87,28 @@ async function loadColors() {
 }
 
 // ==================== LOAD PRODUCTS FROM GOOGLE SHEET ====================
+// ==================== LOAD PRODUCTS FROM GOOGLE SHEET ====================
 async function loadProducts() {
-    // Only run on pages that have a products container
-    const productsGrid = document.getElementById('dynamic-products');
-    if (!productsGrid) return;
+    // Look for the products grid container
+    const productsGrid = document.getElementById('productsGrid');
+    
+    // Debug: Check if container exists
+    console.log('Products container found:', productsGrid);
+    
+    if (!productsGrid) {
+        console.warn('No #productsGrid container found on this page - products will not load');
+        return;
+    }
     
     try {
+        console.log('Fetching products from:', `${GOOGLE_SCRIPT_URL}?action=products`);
+        
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=products`);
         const result = await response.json();
         
-        if (result.success && result.data.length > 0) {
+        console.log('Products API response:', result);
+        
+        if (result.success && result.data && result.data.length > 0) {
             productsGrid.innerHTML = ''; // Clear loading message
             
             result.data.forEach(product => {
@@ -112,18 +124,25 @@ async function loadProducts() {
                         ${product.Feature2 ? `<li>${escapeHtml(product.Feature2)}</li>` : ''}
                         ${product.Feature3 ? `<li>${escapeHtml(product.Feature3)}</li>` : ''}
                     </ul>
-                    <div style="margin-top: 10px; font-weight: bold; color: var(--primary-color);">${escapeHtml(product.Price)}</div>
+                    <div style="margin-top: 10px; font-weight: bold; color: var(--primary-color, #8b5cf6);">${escapeHtml(product.Price)}</div>
                     <a href="${product.BuyLink || 'contact.html'}" class="quote-btn">Get Quote →</a>
                 `;
                 productsGrid.appendChild(productCard);
             });
+            
+            // Update products count
+            const countSpan = document.getElementById('productsCount');
+            if (countSpan) {
+                countSpan.textContent = `${result.data.length} products available`;
+            }
+        } else {
+            productsGrid.innerHTML = '<p style="text-align: center; color: #9090b8;">No products found. Add products in your Google Sheet.</p>';
         }
     } catch (error) {
-        console.warn('Could not load products from sheet:', error);
-        productsGrid.innerHTML = '<p class="error">Unable to load products. Showing static content instead.</p>';
+        console.error('Error loading products:', error);
+        productsGrid.innerHTML = '<p style="text-align: center; color: #ef4444;">Unable to load products. Check console for details.</p>';
     }
 }
-
 // Helper function to prevent XSS
 function escapeHtml(text) {
     if (!text) return '';
