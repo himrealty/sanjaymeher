@@ -182,7 +182,75 @@ const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
 };
+// Theme Toggle Functionality
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        updateThemeIcons('light');
+    } else {
+        updateThemeIcons('dark');
+    }
+}
 
+function updateThemeIcons(theme) {
+    const isLight = theme === 'light';
+    const desktopIcon = document.querySelector('#themeToggleDesktop .theme-icon');
+    const mobileIcon = document.querySelector('#themeToggleMobile .theme-icon');
+    
+    if (desktopIcon) {
+        desktopIcon.textContent = isLight ? '☀️' : '🌙';
+    }
+    if (mobileIcon) {
+        mobileIcon.textContent = isLight ? '☀️' : '🌙';
+    }
+}
+
+function toggleTheme() {
+    const isLight = document.body.classList.toggle('light-theme');
+    const newTheme = isLight ? 'light' : 'dark';
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcons(newTheme);
+}
+
+// Mobile Menu Toggle
+function initMobileMenu() {
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    if (hamburgerBtn && mobileMenu) {
+        hamburgerBtn.addEventListener('click', () => {
+            hamburgerBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        
+        // Close menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburgerBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+    }
+}
+
+// Event Listeners
+document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+    initMobileMenu();
+    
+    const desktopToggle = document.getElementById('themeToggleDesktop');
+    const mobileToggle = document.getElementById('themeToggleMobile');
+    
+    if (desktopToggle) {
+        desktopToggle.addEventListener('click', toggleTheme);
+    }
+    if (mobileToggle) {
+        mobileToggle.addEventListener('click', toggleTheme);
+    }
+});
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
