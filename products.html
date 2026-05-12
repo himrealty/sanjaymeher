@@ -9,40 +9,59 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <!-- Theme Toggle -->
+    <!-- Desktop Theme Toggle -->
     <div class="theme-toggle">
-        <button id="themeBtn" aria-label="Switch theme">
-            <i class="fas fa-moon"></i>
+        <button id="themeToggleDesktop" aria-label="Switch theme">
+            <span class="theme-icon">🌙</span>
         </button>
     </div>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="container nav-container">
-            <div class="logo">
-                <a href="index.html" class="logo-text">Sanjay<span class="accent">Meher</span></a>
+    <!-- Navigation - UPDATED to match CSS -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html" class="logo-text">Sanjay<span class="accent">Meher</span></a>
+                </div>
+                
+                <nav class="desktop-nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="products.html" class="active">Products</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                
+                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="products.html">Products</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
         </div>
-    </nav>
+    </header>
 
+    <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
+        <div class="container">
+            <nav class="mobile-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <!-- Mobile Theme Toggle -->
+            <div class="mobile-theme-toggle">
+                <button id="themeToggleMobile" class="mobile-theme-btn">
+                    <span class="theme-icon">🌙</span> Switch Theme
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- Products Hero -->
@@ -75,7 +94,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <span class="logo-text">Sanjay<span class="accent">Meher</span></span>
+                    <div class="logo-text">Sanjay<span class="accent">Meher</span></div>
                     <p>Video Editor, Graphic Designer & AI Specialist</p>
                 </div>
                 <div class="footer-links">
@@ -97,6 +116,7 @@
             </div>
         </div>
     </footer>
+
     <script src="js/main.js"></script>
 </body>
 </html>
