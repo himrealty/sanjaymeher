@@ -82,25 +82,72 @@ function applyColors(colors) {
 }
 
 // ==================== APPLY SETTINGS ====================
+// ==================== APPLY SETTINGS (UPDATED FOR CONTACT PAGE) ====================
 function applySettings(settings) {
   const map = Array.isArray(settings)
     ? Object.fromEntries(settings.map(s => [s.key, s.value]))
     : settings;
 
+  // Update WhatsApp number everywhere
   if (map.whatsapp_number) {
+    const whatsappNumber = map.whatsapp_number.replace(/\D/g, ''); // Remove non-digits
     const msg = encodeURIComponent('Hi Sanjay, I need a custom quote for my business.');
+    
+    // Update all WhatsApp links (main page)
     document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
-      a.href = `https://wa.me/${map.whatsapp_number}?text=${msg}`;
+      a.href = `https://wa.me/${whatsappNumber}?text=${msg}`;
     });
+    
+    // Update contact page WhatsApp card
+    const whatsappBtn = document.querySelector('.btn-whatsapp');
+    if (whatsappBtn) {
+      whatsappBtn.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hi Sanjay, I need creative services')}`;
+      // Update displayed number (format with spaces: +91 XXXX XXXXX)
+      const formattedNumber = formatPhoneNumber(whatsappNumber);
+      whatsappBtn.innerHTML = `<i class="fab fa-whatsapp"></i> ${formattedNumber}`;
+    }
+    
+    // Update contact page Call card (use same number)
+    const callBtn = document.querySelector('.btn-call');
+    if (callBtn) {
+      callBtn.href = `tel:+${whatsappNumber}`;
+      const formattedNumber = formatPhoneNumber(whatsappNumber);
+      callBtn.innerHTML = `+${formattedNumber}`;
+    }
   }
-  if (map.site_title)  document.title = map.site_title;
+
+  // Update email everywhere
   if (map.email) {
+    // Update all mailto: links (main page)
     document.querySelectorAll('a[href^="mailto:"]').forEach(a => {
       a.href = `mailto:${map.email}`;
     });
+    
+    // Update contact page email card
+    const emailBtn = document.querySelector('.btn-email');
+    if (emailBtn) {
+      emailBtn.href = `mailto:${map.email}`;
+      emailBtn.innerHTML = map.email;
+    }
+  }
+
+  // Update site title
+  if (map.site_title) {
+    document.title = map.site_title;
   }
 }
 
+// Helper function to format phone number (e.g., 918984636695 -> +91 89846 36695)
+function formatPhoneNumber(number) {
+  const str = number.toString();
+  if (str.length === 12 && str.startsWith('91')) {
+    return `+91 ${str.slice(2, 7)} ${str.slice(7)}`;
+  }
+  if (str.length === 10) {
+    return `+91 ${str.slice(0, 5)} ${str.slice(5)}`;
+  }
+  return `+${str}`;
+}
 // ==================== APPLY PRODUCTS ====================
 function applyProducts(products) {
   const grid = document.getElementById('productsGrid');
