@@ -1,5 +1,5 @@
 // ==================== GOOGLE SHEETS CONFIGURATION ====================
-const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'; // Replace with your URL
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbympMOqYHBEWIerQyqDAQ5p4CUiJUqcL45UXswWrRD1Z8IJKj2wOMs9KpfyjToEfC-T6w/exec'; // Replace with your URL
 
 // ==================== THEME MANAGEMENT ====================
 function initTheme() {
