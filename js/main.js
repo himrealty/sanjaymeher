@@ -328,18 +328,15 @@ function highlightActiveNav() {
 
 // ==================== INITIALIZE EVERYTHING ====================
 document.addEventListener('DOMContentLoaded', async () => {
-    // Initialize theme and mobile menu first
     initTheme();
     initMobileMenu();
     highlightActiveNav();
-    initScrollAnimations();
-    
-    // Load data from Google Sheets
+
     await loadColors();
     await loadSettings();
     await loadProducts();
-    
-    // Initialize contact form
+
+    initScrollAnimations(); 
     initContactForm();
     
     // Setup theme toggle event listeners
