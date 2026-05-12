@@ -1,6 +1,7 @@
 // ==================== CONFIGURATION ====================
-const SUPABASE_URL = 'https://bvavtdyxuzzabzgodbjw.supabase.co'; // ← Replace with your Supabase URL
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2YXZ0ZHl4dXp6YWJ6Z29kYmp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxOTc2OTksImV4cCI6MjA4OTc3MzY5OX0.gqfiaeDtWBtuyj_CQCaiySVA2-VmuM9CVvd5N-gRlV8';             // ← Replace with your Supabase anon key
+const SUPABASE_URL = 'https://bvavtdyxuzzabzgodbjw.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2YXZ0ZHl4dXp6YWJ6Z29kYmp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxOTc2OTksImV4cCI6MjA4OTc3MzY5OX0.gqfiaeDtWBtuyj_CQCaiySVA2-VmuM9CVvd5N-gRlV8';
+
 // ==================== SUPABASE FETCH HELPER ====================
 async function supabaseFetch(table) {
   const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=*`, {
@@ -16,10 +17,16 @@ async function supabaseFetch(table) {
 // ==================== THEME MANAGEMENT ====================
 function initTheme() {
   const savedTheme = localStorage.getItem('theme');
+  const bgDark = getComputedStyle(document.documentElement).getPropertyValue('--bg-dark').trim();
+  const bgLight = getComputedStyle(document.documentElement).getPropertyValue('--bg-light').trim();
+  
   if (savedTheme === 'light') {
     document.body.classList.add('light-theme');
+    document.body.style.backgroundColor = bgLight || '#f5f5f7';
     updateThemeIcons('light');
   } else {
+    document.body.classList.remove('light-theme');
+    document.body.style.backgroundColor = bgDark || '#0a0a0f';
     updateThemeIcons('dark');
   }
 }
@@ -27,30 +34,56 @@ function initTheme() {
 function updateThemeIcons(theme) {
   const isLight = theme === 'light';
   const desktopIcon = document.querySelector('#themeToggleDesktop .theme-icon');
-  const mobileIcon  = document.querySelector('#themeToggleMobile');
-  if (desktopIcon) desktopIcon.textContent = isLight ? '☀️' : '🌙';
-  if (mobileIcon)  mobileIcon.innerHTML = isLight
-    ? '<span class="theme-icon">☀️</span> Switch Theme'
-    : '<span class="theme-icon">🌙</span> Switch Theme';
+  const mobileIcon = document.querySelector('#themeToggleMobile');
+  
+  if (desktopIcon) {
+    desktopIcon.textContent = isLight ? '☀️' : '🌙';
+  }
+  
+  if (mobileIcon) {
+    if (isLight) {
+      mobileIcon.innerHTML = '<span class="theme-icon">☀️</span> Switch Theme';
+    } else {
+      mobileIcon.innerHTML = '<span class="theme-icon">🌙</span> Switch Theme';
+    }
+  }
 }
 
 function toggleTheme() {
-  const isLight = document.body.classList.toggle('light-theme');
-  const newTheme = isLight ? 'light' : 'dark';
-  localStorage.setItem('theme', newTheme);
-  updateThemeIcons(newTheme);
+  const isCurrentlyLight = document.body.classList.contains('light-theme');
+  const bgDark = getComputedStyle(document.documentElement).getPropertyValue('--bg-dark').trim();
+  const bgLight = getComputedStyle(document.documentElement).getPropertyValue('--bg-light').trim();
+  
+  if (isCurrentlyLight) {
+    // Switch to dark mode
+    document.body.classList.remove('light-theme');
+    document.body.style.backgroundColor = bgDark || '#0a0a0f';
+    localStorage.setItem('theme', 'dark');
+    updateThemeIcons('dark');
+  } else {
+    // Switch to light mode
+    document.body.classList.add('light-theme');
+    document.body.style.backgroundColor = bgLight || '#f5f5f7';
+    localStorage.setItem('theme', 'light');
+    updateThemeIcons('light');
+  }
+  
+  // Force update of any elements that might have cached styles
+  document.dispatchEvent(new Event('themeChanged'));
 }
 
 // ==================== MOBILE MENU ====================
 function initMobileMenu() {
   const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const mobileMenu   = document.getElementById('mobileMenu');
+  const mobileMenu = document.getElementById('mobileMenu');
+  
   if (hamburgerBtn && mobileMenu) {
     hamburgerBtn.addEventListener('click', () => {
       hamburgerBtn.classList.toggle('active');
       mobileMenu.classList.toggle('active');
       document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
     });
+    
     mobileMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         hamburgerBtn.classList.remove('active');
@@ -67,17 +100,25 @@ function applyColors(colors) {
     ? Object.fromEntries(colors.map(c => [c.key, c.value]))
     : colors;
 
-  document.documentElement.style.setProperty('--primary-color',   map.primary_color    || '#8b5cf6');
-  document.documentElement.style.setProperty('--secondary-color', map.secondary_color  || '#6d28d9');
-  document.documentElement.style.setProperty('--bg-dark',         map.background_dark  || '#0a0a0f');
-  document.documentElement.style.setProperty('--bg-light',        map.background_light || '#f5f5f7');
-  document.documentElement.style.setProperty('--text-dark',       map.text_dark        || '#ffffff');
-  document.documentElement.style.setProperty('--text-light',      map.text_light       || '#1a1a2e');
+  const primaryColor = map.primary_color || '#8b5cf6';
+  const secondaryColor = map.secondary_color || '#6d28d9';
+  const bgDark = map.background_dark || '#0a0a0f';
+  const bgLight = map.background_light || '#f5f5f7';
+  const textDark = map.text_dark || '#ffffff';
+  const textLight = map.text_light || '#1a1a2e';
 
+  document.documentElement.style.setProperty('--primary-color', primaryColor);
+  document.documentElement.style.setProperty('--secondary-color', secondaryColor);
+  document.documentElement.style.setProperty('--bg-dark', bgDark);
+  document.documentElement.style.setProperty('--bg-light', bgLight);
+  document.documentElement.style.setProperty('--text-dark', textDark);
+  document.documentElement.style.setProperty('--text-light', textLight);
+
+  // Apply current theme background
   if (document.body.classList.contains('light-theme')) {
-    document.body.style.backgroundColor = map.background_light || '#f5f5f7';
+    document.body.style.backgroundColor = bgLight;
   } else {
-    document.body.style.backgroundColor = map.background_dark || '#0a0a0f';
+    document.body.style.backgroundColor = bgDark;
   }
 }
 
@@ -87,34 +128,29 @@ function applySettings(settings) {
     ? Object.fromEntries(settings.map(s => [s.key, s.value]))
     : settings;
 
-  // Update WhatsApp number - links already work, just update the displayed text
+  // Update WhatsApp number
   if (map.whatsapp_number) {
     const whatsappNumber = map.whatsapp_number.replace(/\D/g, '');
     const formattedNumber = formatPhoneNumber(whatsappNumber);
     
-    // Update the displayed text in WhatsApp button (NOT the href)
     const whatsappBtn = document.querySelector('.btn-whatsapp');
     if (whatsappBtn) {
-      // Only update the text content, preserve the icon
       const icon = whatsappBtn.querySelector('i');
       if (icon) {
-        icon.outerHTML = '<i class="fab fa-whatsapp"></i>';
         whatsappBtn.innerHTML = '<i class="fab fa-whatsapp"></i> ' + formattedNumber;
       } else {
-        whatsappBtn.textContent = formattedNumber;
+        whatsappBtn.innerHTML = '<i class="fab fa-whatsapp"></i> ' + formattedNumber;
       }
     }
     
-    // Update the displayed text in Call button
     const callBtn = document.querySelector('.btn-call');
     if (callBtn) {
       callBtn.textContent = formattedNumber;
     }
   }
 
-  // Update email - links already work, just update the displayed text
+  // Update email
   if (map.email) {
-    // Update the displayed email in Email button
     const emailBtn = document.querySelector('.btn-email');
     if (emailBtn) {
       emailBtn.textContent = map.email;
@@ -138,6 +174,7 @@ function formatPhoneNumber(number) {
   }
   return `+${str}`;
 }
+
 // ==================== APPLY PRODUCTS ====================
 function applyProducts(products) {
   const grid = document.getElementById('productsGrid');
@@ -173,10 +210,9 @@ function applyProducts(products) {
 }
 
 // ==================== LOAD ALL DATA FROM SUPABASE ====================
-// ==================== LOAD ALL DATA FROM SUPABASE (NO CACHE - FRESH EVERY TIME) ====================
 async function loadAllData() {
   try {
-    // Fetch all 3 in parallel — fresh every time
+    // Fetch all 3 in parallel
     const [colors, settings, products] = await Promise.all([
       supabaseFetch('colors'),
       supabaseFetch('settings'),
@@ -186,21 +222,34 @@ async function loadAllData() {
     applyColors(colors);
     applySettings(settings);
     applyProducts(products);
+    
+    // Re-apply theme after colors are loaded
+    const currentTheme = localStorage.getItem('theme');
+    const bgDark = getComputedStyle(document.documentElement).getPropertyValue('--bg-dark').trim();
+    const bgLight = getComputedStyle(document.documentElement).getPropertyValue('--bg-light').trim();
+    
+    if (currentTheme === 'light') {
+      document.body.classList.add('light-theme');
+      document.body.style.backgroundColor = bgLight || '#f5f5f7';
+      updateThemeIcons('light');
+    } else {
+      document.body.classList.remove('light-theme');
+      document.body.style.backgroundColor = bgDark || '#0a0a0f';
+      updateThemeIcons('dark');
+    }
 
-    // Clear any old cached data if it exists
+    // Clear any old cached data
     localStorage.removeItem('siteData');
     localStorage.removeItem('siteDataTime');
 
   } catch(error) {
     console.error('Supabase load failed, page will use defaults:', error);
     
-    // Show error message on products grid if it exists
     const grid = document.getElementById('productsGrid');
     if (grid && grid.innerHTML.includes('fa-spinner')) {
       grid.innerHTML = '<p style="text-align:center;color:#ef4444;">⚠️ Unable to load data. Please refresh the page.</p>';
     }
     
-    // Also show error on contact page if applicable
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
       const note = document.querySelector('.form-note');
@@ -211,6 +260,7 @@ async function loadAllData() {
     }
   }
 }
+
 // ==================== CONTACT FORM HANDLER ====================
 function initContactForm() {
   const contactForm = document.getElementById('contactForm');
@@ -221,26 +271,26 @@ function initContactForm() {
 
     const formData = new FormData(contactForm);
     const data = {
-      name:    formData.get('name'),
-      email:   formData.get('email'),
-      phone:   formData.get('phone'),
+      name: formData.get('name'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
       service: formData.get('service') || 'General',
       message: formData.get('message')
     };
 
-    const submitBtn  = contactForm.querySelector('button[type="submit"]');
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
     const originalHTML = submitBtn.innerHTML;
-    submitBtn.innerHTML  = '<span>⏳ Sending...</span>';
-    submitBtn.disabled   = true;
+    submitBtn.innerHTML = '<span>⏳ Sending...</span>';
+    submitBtn.disabled = true;
 
     try {
       const res = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
         method: 'POST',
         headers: {
-          'apikey':        SUPABASE_KEY,
+          'apikey': SUPABASE_KEY,
           'Authorization': 'Bearer ' + SUPABASE_KEY,
-          'Content-Type':  'application/json',
-          'Prefer':        'return=minimal'
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
         },
         body: JSON.stringify({ ...data, status: 'New' })
       });
@@ -255,7 +305,7 @@ function initContactForm() {
       showNotification('❌ Something went wrong. Please WhatsApp directly.', 'error');
     } finally {
       submitBtn.innerHTML = originalHTML;
-      submitBtn.disabled  = false;
+      submitBtn.disabled = false;
     }
   });
 }
@@ -279,7 +329,7 @@ function showNotification(message, type = 'success') {
         box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       }
       .site-notification.error { background: #ef4444; }
-      .site-notification.show  { opacity: 1; }
+      .site-notification.show { opacity: 1; }
     `;
     document.head.appendChild(style);
   }
@@ -294,7 +344,7 @@ function initScrollAnimations() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.opacity   = '1';
+        entry.target.style.opacity = '1';
         entry.target.style.transform = 'translateY(0)';
         observer.unobserve(entry.target);
       }
@@ -302,8 +352,8 @@ function initScrollAnimations() {
   }, { threshold: 0.1 });
 
   elements.forEach(el => {
-    el.style.opacity    = '0';
-    el.style.transform  = 'translateY(20px)';
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(el);
   });
@@ -327,26 +377,42 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-// ==================== INIT ====================
+// ==================== LOGO ERROR HANDLER ====================
+function initLogoErrorHandler() {
+  document.querySelectorAll('.brand-item img').forEach(img => {
+    img.addEventListener('error', function() { 
+      this.style.display = 'none'; 
+    });
+  });
+}
+
+// ==================== INITIALIZATION ====================
 document.addEventListener('DOMContentLoaded', async () => {
   initTheme();
   initMobileMenu();
   highlightActiveNav();
 
-  // Load data first, then animate so cards are visible
+  // Load data first, then animate
   await loadAllData();
   initScrollAnimations();
   initContactForm();
+  initLogoErrorHandler();
 
+  // Add theme toggle event listeners
   const desktopToggle = document.getElementById('themeToggleDesktop');
-  const mobileToggle  = document.getElementById('themeToggleMobile');
-  if (desktopToggle) desktopToggle.addEventListener('click', toggleTheme);
-  if (mobileToggle)  mobileToggle.addEventListener('click', toggleTheme);
-});
-
-// ==================== LOGO ERROR HANDLER ====================
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.brand-item img').forEach(img => {
-    img.addEventListener('error', function() { this.style.display = 'none'; });
-  });
+  const mobileToggle = document.getElementById('themeToggleMobile');
+  
+  if (desktopToggle) {
+    desktopToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleTheme();
+    });
+  }
+  
+  if (mobileToggle) {
+    mobileToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleTheme();
+    });
+  }
 });
