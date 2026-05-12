@@ -82,52 +82,42 @@ function applyColors(colors) {
 }
 
 // ==================== APPLY SETTINGS ====================
-// ==================== APPLY SETTINGS (UPDATED FOR CONTACT PAGE) ====================
 function applySettings(settings) {
   const map = Array.isArray(settings)
     ? Object.fromEntries(settings.map(s => [s.key, s.value]))
     : settings;
 
-  // Update WhatsApp number everywhere
+  // Update WhatsApp number - links already work, just update the displayed text
   if (map.whatsapp_number) {
-    const whatsappNumber = map.whatsapp_number.replace(/\D/g, ''); // Remove non-digits
-    const msg = encodeURIComponent('Hi Sanjay, I need a custom quote for my business.');
+    const whatsappNumber = map.whatsapp_number.replace(/\D/g, '');
+    const formattedNumber = formatPhoneNumber(whatsappNumber);
     
-    // Update all WhatsApp links (main page)
-    document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
-      a.href = `https://wa.me/${whatsappNumber}?text=${msg}`;
-    });
-    
-    // Update contact page WhatsApp card
+    // Update the displayed text in WhatsApp button (NOT the href)
     const whatsappBtn = document.querySelector('.btn-whatsapp');
     if (whatsappBtn) {
-      whatsappBtn.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hi Sanjay, I need creative services')}`;
-      // Update displayed number (format with spaces: +91 XXXX XXXXX)
-      const formattedNumber = formatPhoneNumber(whatsappNumber);
-      whatsappBtn.innerHTML = `<i class="fab fa-whatsapp"></i> ${formattedNumber}`;
+      // Only update the text content, preserve the icon
+      const icon = whatsappBtn.querySelector('i');
+      if (icon) {
+        icon.outerHTML = '<i class="fab fa-whatsapp"></i>';
+        whatsappBtn.innerHTML = '<i class="fab fa-whatsapp"></i> ' + formattedNumber;
+      } else {
+        whatsappBtn.textContent = formattedNumber;
+      }
     }
     
-    // Update contact page Call card (use same number)
+    // Update the displayed text in Call button
     const callBtn = document.querySelector('.btn-call');
     if (callBtn) {
-      callBtn.href = `tel:+${whatsappNumber}`;
-      const formattedNumber = formatPhoneNumber(whatsappNumber);
-      callBtn.innerHTML = `+${formattedNumber}`;
+      callBtn.textContent = formattedNumber;
     }
   }
 
-  // Update email everywhere
+  // Update email - links already work, just update the displayed text
   if (map.email) {
-    // Update all mailto: links (main page)
-    document.querySelectorAll('a[href^="mailto:"]').forEach(a => {
-      a.href = `mailto:${map.email}`;
-    });
-    
-    // Update contact page email card
+    // Update the displayed email in Email button
     const emailBtn = document.querySelector('.btn-email');
     if (emailBtn) {
-      emailBtn.href = `mailto:${map.email}`;
-      emailBtn.innerHTML = map.email;
+      emailBtn.textContent = map.email;
     }
   }
 
@@ -137,7 +127,7 @@ function applySettings(settings) {
   }
 }
 
-// Helper function to format phone number (e.g., 918984636695 -> +91 89846 36695)
+// Helper function to format phone number
 function formatPhoneNumber(number) {
   const str = number.toString();
   if (str.length === 12 && str.startsWith('91')) {
